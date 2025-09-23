@@ -1,0 +1,41 @@
+{
+  "tripulaciones": [
+    {
+      "nombre": "Sombrero de Paja",
+      "activo": 1,
+      "personajes": [
+        {"nombre": "Luffy", "activo": 1},
+        {"nombre": "Zoro", "activo": 1},
+        {"nombre": "Sanji", "activo": 1},
+        {"nombre": "Nami", "activo": 1},
+        {"nombre": "Usopp", "activo": 1}
+      ]
+    },
+    {
+      "nombre": "Barbanegra",
+      "activo": 1,
+      "personajes": [
+        {"nombre": "Teach", "activo": 1},
+        {"nombre": "Burgess", "activo": 1},
+        {"nombre": "Van Augur", "activo": 1}
+      ]
+    },
+    {
+      "nombre": "Bestias",
+      "activo": 1,
+      "personajes": [
+        {"nombre": "Kaido", "activo": 1},
+        {"nombre": "King", "activo": 1},
+        {"nombre": "Queen", "activo": 1}
+      ]
+    },
+    {
+      "nombre": "Marines",
+      "activo": 0,
+      "personajes": [
+        {"nombre": "Akainu", "activo": 1},
+        {"nombre": "Aokiji", "activo": 1}
+      ]
+    }
+  ]
+}

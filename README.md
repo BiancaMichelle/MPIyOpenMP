@@ -48,17 +48,64 @@ wsl --install -d Ubuntu-22.04
 ```
 Reinicia tu computadora cuando se te solicite.
 
-### Paso 2: Instalar Dependencias
+### Paso 2: Acceder a WSL
+Una vez instalado WSL, desde cualquier terminal de Windows (PowerShell o CMD):
 ```bash
-# Desde WSL o terminal Linux
+# Para entrar a WSL Ubuntu
+wsl
+
+# O directamente ejecutar comandos en WSL
+wsl -e bash -c "comando_aquí"
+```
+
+### Paso 3: Navegar al Proyecto en WSL
+```bash
+# Una vez dentro de WSL, navegar al proyecto
 cd /mnt/c/Users/[TU_USUARIO]/Desktop/MPIyOpenMP/torneo
+
+# Por ejemplo, si tu usuario es "Juan":
+cd /mnt/c/Users/Juan/Desktop/MPIyOpenMP/torneo
+```
+
+### Paso 4: Instalar Dependencias
+```bash
+# Hacer el script ejecutable e instalar dependencias
 chmod +x scripts/install_dependencies.sh
 ./scripts/install_dependencies.sh
 ```
 
-### Paso 3: Compilar el Proyecto
+### Paso 5: Compilar el Proyecto
 ```bash
 make compile
+```
+
+## 🚀 Comandos Rápidos de Referencia
+
+### Desde Windows (PowerShell/CMD)
+```bash
+# Entrar a WSL
+wsl
+
+# Ejecutar comando directo en WSL
+wsl -e bash -c "cd /mnt/c/Users/Usuario/Desktop/MPIyOpenMP/torneo && make run"
+
+# Iniciar servidor web desde Windows
+wsl -e bash -c "cd /mnt/c/Users/Usuario/Desktop/MPIyOpenMP/torneo/web && python3 -m http.server 8000"
+```
+
+### Una vez dentro de WSL
+```bash
+# Navegar al proyecto (cambiar "Usuario" por tu nombre de usuario)
+cd /mnt/c/Users/Usuario/Desktop/MPIyOpenMP/torneo
+
+# Compilar
+make compile
+
+# Ejecutar torneo
+make run
+
+# Ver ayuda
+make help
 ```
 
 ## Ejecución
@@ -130,12 +177,54 @@ La página web muestra:
 - Visualización de resultados en tiempo real
 - Información técnica sobre MPI/OpenMP
 
+## 📝 Ejemplo Completo de Uso
+
+### Primera vez (instalación completa)
+```bash
+# 1. Desde PowerShell como administrador
+wsl --install -d Ubuntu-22.04
+# [Reiniciar computadora]
+
+# 2. Abrir PowerShell normal y entrar a WSL
+wsl
+
+# 3. Navegar al proyecto (cambiar "Usuario" por tu nombre)
+cd /mnt/c/Users/Usuario/Desktop/MPIyOpenMP/torneo
+
+# 4. Instalar dependencias
+chmod +x scripts/install_dependencies.sh
+./scripts/install_dependencies.sh
+
+# 5. Compilar
+make compile
+
+# 6. Ejecutar
+make run
+```
+
+### Uso diario (ya tienes todo instalado)
+```bash
+# Opción A: Desde PowerShell, comando directo
+wsl -e bash -c "cd /mnt/c/Users/Usuario/Desktop/MPIyOpenMP/torneo && make run"
+
+# Opción B: Entrar a WSL y trabajar desde ahí
+wsl
+cd /mnt/c/Users/Usuario/Desktop/MPIyOpenMP/torneo
+make run
+
+# Para ver la interfaz web
+# En otra ventana de PowerShell:
+wsl -e bash -c "cd /mnt/c/Users/Usuario/Desktop/MPIyOpenMP/torneo/web && python3 -m http.server 8000"
+# Luego abrir: http://localhost:8000/templates/demo.html
+```
+
 ## Configuración Personalizada
 
 Puedes modificar `config/config.json` para:
 - Agregar nuevas tripulaciones
 - Cambiar personajes y sus poderes
 - Ajustar parámetros del torneo
+
 ## Solución de Problemas
 
 ### Error: "mpicc no encontrado"
@@ -158,6 +247,29 @@ sudo apt install build-essential
 ```bash
 chmod +x scripts/*.sh
 chmod +x *.sh
+```
+
+### Error: "wsl: command not found" (Windows)
+```bash
+# WSL no está instalado, ejecutar como administrador:
+wsl --install -d Ubuntu-22.04
+```
+
+### Error: WSL no encuentra el directorio
+```bash
+# Verificar que estás en la ruta correcta, reemplazar "Usuario" por tu nombre:
+ls /mnt/c/Users/Usuario/Desktop/MPIyOpenMP/
+
+# Si no existe, verificar tu nombre de usuario en Windows:
+ls /mnt/c/Users/
+```
+
+### Error: "No se puede acceder a WSL"
+```bash
+# En PowerShell como administrador:
+wsl --update
+wsl --shutdown
+# Luego reiniciar y probar: wsl
 ```
 
 ## Autor

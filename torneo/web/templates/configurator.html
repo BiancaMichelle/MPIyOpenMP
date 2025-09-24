@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>🏴‍☠️ Configurador Torneo One Piece - MPI/OpenMP</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      font-family: 'Arial', sans-serif;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      min-height: 100vh;
+      padding: 20px;
+    }
+    
+    .container {
+      max-width: 1000px;
+      margin: 0 auto;
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(10px);
+      border-radius: 20px;
+      padding: 30px;
+      box-shadow: 0 8px 32px rgba(31, 38, 135, 0.37);
+      border: 1px solid rgba(255, 255, 255, 0.18);
+    }
+    
+    .header {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+    
+    .header h1 {
+      font-size: 2.5em;
+      margin-bottom: 10px;
+      text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+    }
+    
+    .header p {
+      font-size: 1.1em;
+      opacity: 0.9;
+      margin-bottom: 20px;
+    }
+    
+    .status {
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 10px;
+      padding: 15px;
+      margin-bottom: 20px;
+      text-align: center;
+    }
+    
+    .status.ejecutando {
+      background: rgba(255, 193, 7, 0.3);
+      border: 2px solid #ffc107;
+    }
+    
+    .status.completado {
+      background: rgba(40, 167, 69, 0.3);
+      border: 2px solid #28a745;
+    }
+    
+    .tripulacion {
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 15px;
+      padding: 20px;
+      margin: 15px 0;
+      border: 2px solid transparent;
+      transition: all 0.3s ease;
+      cursor: pointer;
+    }
+    
+    .tripulacion:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+    }
+    
+    .tripulacion.activa {
+      border-color: #4ECDC4;
+      background: rgba(78, 205, 196, 0.2);
+    }
+    
+    .tripulacion.inactiva {
+      opacity: 0.5;
+      border-color: #ff6b6b;
+    }
+    
+    .tripulacion-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 15px;
+    }
+    
+    .tripulacion h3 {
+      font-size: 1.4em;
+      font-size: 1.5em;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    
+    .switch {
+      position: relative;
+      display: inline-block;
+      width: 60px;
+      height: 34px;
+    }
+    
+    .switch input {
+      opacity: 0;
+      width: 0;
+      height: 0;
+    }
+    
+    .slider {
+      position: absolute;
+      cursor: pointer;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: rgba(255, 255, 255, 0.3);
+      transition: .4s;
+      border-radius: 34px;
+    }
+    
+    .slider:before {
+      position: absolute;
+      content: "";
+      height: 26px;
+      width: 26px;
+      left: 4px;
+      bottom: 4px;
+      background-color: white;
+      transition: .4s;
+      border-radius: 50%;
+    }
+    
+    input:checked + .slider {
+      background-color: #4ECDC4;
+    }
+    
+    input:checked + .slider:before {
+      transform: translateX(26px);
+    }
+    
+    .personajes {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 15px;
+      margin-top: 15px;
+    }
+    
+    .personaje {
+      background: rgba(255, 255, 255, 0.1);
+      padding: 15px;
+      border-radius: 10px;
+      text-align: center;
+      transition: transform 0.2s ease;
+    }
+    
+    .personaje:hover {
+      transform: translateY(-2px);
+    }
+    
+    .personaje.inactivo {
+      opacity: 0.5;
+    }
+    
+    .btn-group {
+      text-align: center;
+      margin-top: 30px;
+      display: flex;
+      gap: 15px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+    
+    .btn {
+      background: linear-gradient(45deg, #FF6B6B, #4ECDC4);
+      border: none;
+      color: white;
+      padding: 15px 30px;
+      font-size: 1.1em;
+      border-radius: 25px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      text-decoration: none;
+      display: inline-block;
+    }
+    
+    .btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+    }
+    
+    .btn-secondary {
+      background: linear-gradient(45deg, #667eea, #764ba2);
+    }
+    
+    .status {
+      text-align: center;
+      padding: 15px;
+      border-radius: 10px;
+      margin-top: 20px;
+      display: none;
+    }
+    
+    .status.success {
+      background: rgba(78, 205, 196, 0.3);
+      color: #4ECDC4;
+      display: block;
+    }
+    
+    .status.error {
+      background: rgba(255, 107, 107, 0.3);
+      color: #FF6B6B;
+      display: block;
+    }
+    
+    .info-panel {
+      background: rgba(255, 215, 0, 0.2);
+      border-radius: 10px;
+      padding: 20px;
+      margin-bottom: 30px;
+      border-left: 4px solid #ffd700;
+    }
+    
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 15px;
+      margin: 20px 0;
+    }
+    
+    .stat {
+      background: rgba(255, 255, 255, 0.1);
+      padding: 15px;
+      border-radius: 10px;
+      text-align: center;
+    }
+    
+    .stat-number {
+      font-size: 2em;
+      font-weight: bold;
+      color: #4ECDC4;
+    }
+    
+    .stat-label {
+      font-size: 0.9em;
+      opacity: 0.8;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>⚙️ Configurador de Torneo</h1>
+    
+    <div class="info-panel">
+      <h3>💡 Instrucciones</h3>
+      <p>Selecciona las tripulaciones que participarán en el torneo. Cada tripulación activa será procesada por un proceso MPI diferente, y los personajes dentro de cada tripulación serán evaluados en paralelo usando OpenMP.</p>
+    </div>
+    
+    <div class="stats" id="stats">
+      <div class="stat">
+        <div class="stat-number" id="tripulaciones-activas">0</div>
+        <div class="stat-label">Tripulaciones Activas</div>
+      </div>
+      <div class="stat">
+        <div class="stat-number" id="personajes-total">0</div>
+        <div class="stat-label">Personajes Total</div>
+      </div>
+      <div class="stat">
+        <div class="stat-number" id="procesos-mpi">0</div>
+        <div class="stat-label">Procesos MPI</div>
+      </div>
+    </div>
+    
+    <form id="configuradorForm">
+      <div id="tripulaciones-container">
+        <!-- Las tripulaciones se cargarán dinámicamente -->
+      </div>
+      
+      <div class="btn-group">
+        <button type="submit" class="btn">💾 Guardar Configuración</button>
+        <button type="button" class="btn btn-secondary" onclick="cargarConfigDefault()">🔄 Configuración por Defecto</button>
+        <a href="resultados.html" class="btn btn-secondary">🏆 Ver Resultados</a>
+      </div>
+      
+      <div id="status" class="status"></div>
+    </form>
+  </div>
+
+  <script src="../static/js/script.js"></script>
+  <script>
+    let configuracionActual = null;
+    
+    // Configuración por defecto
+    const configDefault = {
+      tripulaciones: [
+        {
+          nombre: "Sombrero de Paja",
+          activo: 1,
+          personajes: [
+            {nombre: "Luffy", activo: 1},
+            {nombre: "Zoro", activo: 1},
+            {nombre: "Sanji", activo: 1},
+            {nombre: "Nami", activo: 1},
+            {nombre: "Usopp", activo: 1}
+          ]
+        },
+        {
+          nombre: "Barbanegra",
+          activo: 1,
+          personajes: [
+            {nombre: "Teach", activo: 1},
+            {nombre: "Burgess", activo: 1},
+            {nombre: "Van Augur", activo: 1}
+          ]
+        },
+        {
+          nombre: "Bestias",
+          activo: 1,
+          personajes: [
+            {nombre: "Kaido", activo: 1},
+            {nombre: "King", activo: 1},
+            {nombre: "Queen", activo: 1}
+          ]
+        },
+        {
+          nombre: "Marines",
+          activo: 0,
+          personajes: [
+            {nombre: "Akainu", activo: 1},
+            {nombre: "Aokiji", activo: 1},
+            {nombre: "Kizaru", activo: 1}
+          ]
+        }
+      ]
+    };
+    
+    function cargarConfiguracion() {
+      // Intentar cargar desde archivo, si no existe usar default
+      fetch("../config/config.json")
+        .then(r => r.json())
+        .then(config => {
+          configuracionActual = config;
+          renderizarTripulaciones();
+          actualizarEstadisticas();
+        })
+        .catch(() => {
+          configuracionActual = configDefault;
+          renderizarTripulaciones();
+          actualizarEstadisticas();
+        });
+    }
+    
+    function cargarConfigDefault() {
+      configuracionActual = JSON.parse(JSON.stringify(configDefault));
+      renderizarTripulaciones();
+      actualizarEstadisticas();
+      mostrarStatus("🔄 Configuración por defecto cargada", "success");
+    }
+    
+    function renderizarTripulaciones() {
+      const container = document.getElementById("tripulaciones-container");
+      container.innerHTML = "";
+      
+      configuracionActual.tripulaciones.forEach((trip, index) => {
+        const tripDiv = document.createElement("div");
+        tripDiv.className = `tripulacion ${trip.activo ? 'activa' : ''}`;
+        tripDiv.innerHTML = `
+          <h3>
+            🏴‍☠️ ${trip.nombre}
+            <label class="switch">
+              <input type="checkbox" ${trip.activo ? 'checked' : ''} 
+                     onchange="toggleTripulacion(${index})">
+              <span class="slider"></span>
+            </label>
+          </h3>
+          <div class="personajes">
+            ${trip.personajes.map(p => `
+              <div class="personaje ${p.activo ? '' : 'inactivo'}">
+                <strong>${p.nombre}</strong>
+                <br><small>${p.activo ? '✅ Activo' : '❌ Inactivo'}</small>
+              </div>
+            `).join('')}
+          </div>
+        `;
+        container.appendChild(tripDiv);
+      });
+    }
+    
+    function toggleTripulacion(index) {
+      configuracionActual.tripulaciones[index].activo = 
+        configuracionActual.tripulaciones[index].activo ? 0 : 1;
+      renderizarTripulaciones();
+      actualizarEstadisticas();
+    }
+    
+    function actualizarEstadisticas() {
+      const tripulacionesActivas = configuracionActual.tripulaciones.filter(t => t.activo).length;
+      const personajesTotal = configuracionActual.tripulaciones
+        .reduce((total, t) => total + (t.activo ? t.personajes.filter(p => p.activo).length : 0), 0);
+      
+      document.getElementById("tripulaciones-activas").textContent = tripulacionesActivas;
+      document.getElementById("personajes-total").textContent = personajesTotal;
+      document.getElementById("procesos-mpi").textContent = tripulacionesActivas;
+    }
+    
+    function mostrarStatus(mensaje, tipo) {
+      const status = document.getElementById("status");
+      status.textContent = mensaje;
+      status.className = `status ${tipo}`;
+      
+      setTimeout(() => {
+        status.style.display = "none";
+      }, 3000);
+    }
+    
+    // Manejar envío del formulario
+    document.getElementById("configuradorForm").addEventListener("submit", (e) => {
+      e.preventDefault();
+      
+      // Simular guardado (en un entorno real, esto enviaría al servidor)
+      localStorage.setItem('torneo_config', JSON.stringify(configuracionActual));
+      
+      // Generar archivo para descarga
+      const dataStr = "data:text/json;charset=utf-8," + 
+        encodeURIComponent(JSON.stringify(configuracionActual, null, 2));
+      const downloadAnchorNode = document.createElement('a');
+      downloadAnchorNode.setAttribute("href", dataStr);
+      downloadAnchorNode.setAttribute("download", "config.json");
+      document.body.appendChild(downloadAnchorNode);
+      downloadAnchorNode.click();
+      downloadAnchorNode.remove();
+      
+      mostrarStatus("✅ Configuración guardada y descargada! Copia el archivo a config/config.json", "success");
+    });
+    
+    // Cargar configuración al inicio
+    document.addEventListener('DOMContentLoaded', cargarConfiguracion);
+  </script>
+</body>
+</html>

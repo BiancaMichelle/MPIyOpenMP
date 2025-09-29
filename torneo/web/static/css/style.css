@@ -156,6 +156,22 @@ body {
   display: flex;
   align-items: center;
   margin-bottom: 15px;
+  position: relative;
+}
+
+.crew-logo {
+  width: 30px;
+  height: 30px;
+  margin-right: 10px;
+  border-radius: 50%;
+  border: 2px solid rgba(135, 206, 250, 0.6);
+  box-shadow: 0 0 8px rgba(30, 144, 255, 0.5);
+  transition: all 0.3s ease;
+}
+
+.crew-card:hover .crew-logo {
+  transform: scale(1.1);
+  box-shadow: 0 0 12px rgba(30, 144, 255, 0.8);
 }
 
 .crew-checkbox {
@@ -345,7 +361,7 @@ body {
 }
 
 .modal h2 {
-  color: #87CEEB;
+  color: #FFFFFF;
   margin-bottom: 20px;
   text-align: center;
   font-size: 1.8em;
@@ -356,10 +372,42 @@ body {
   text-align: center;
   margin: 20px 0;
   padding: 20px;
-  background: rgba(139, 0, 0, 0.4);
+  background: rgba(0, 139, 46, 0.4);
   border-radius: 15px;
-  border: 2px solid #DC143C;
+  border: 2px solid #14dc89;
   animation: winnerPulse 2s ease-in-out infinite;
+}
+
+.winner-header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.winner-logo {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  border: 3px solid #14dc89;
+  box-shadow: 0 0 20px  rgba(0, 139, 46, 0.4);
+  animation: logoRotate 3s ease-in-out infinite;
+}
+
+@keyframes logoRotate {
+  0%, 100% { 
+    transform: scale(1) rotate(0deg);
+    box-shadow: 0 0 20px rgba(220, 20, 60, 0.6);
+  }
+  50% { 
+    transform: scale(1.1) rotate(5deg);
+    box-shadow: 0 0 30px rgba(255, 0, 0, 0.8);
+  }
+}
+
+.winner-info {
+  text-align: center;
 }
 
 @keyframes winnerPulse {

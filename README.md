@@ -10,7 +10,7 @@ Una **aplicación web interactiva** que demuestra conceptos de programación par
 - 📱 **Responsive**: Funciona en móviles y escritorio
 - 🎮 **Interactivo**: Selecciona tripulaciones y ve resultados en tiempo real
 
-## Estructura Simplificada
+## Estructura
 ```
 torneo/
 ├── web/
@@ -24,7 +24,7 @@ torneo/
 
 ## 🚀 Inicio Rápido
 
-### Para Windows (Recomendado)
+### Para Windows
 
 #### 1. Instalar WSL
 ```powershell
@@ -61,7 +61,7 @@ Abre tu navegador en: **http://localhost:8000/templates/demo.html**
 1. **Seleccionar Tripulaciones**: Haz clic en las tarjetas de tripulaciones
 2. **Configurar Torneo**: Elige las tripulaciones que participarán  
 3. **Iniciar Simulación**: Presiona "Iniciar Simulación"
-4. **Ver Resultados**: Los resultados aparecen en un modal elegante
+4. **Ver Resultados**: Los resultados aparecen en un modal
 
 ## 🔧 Comandos Disponibles
 
@@ -83,10 +83,6 @@ Abre tu navegador en: **http://localhost:8000/templates/demo.html**
 - **Paralelización**: Los combates dentro de cada tripulación se procesan en paralelo
 - **Memoria Compartida**: Los hilos trabajan sobre los mismos datos
 
-### Interfaz Web
-- **JavaScript Moderno**: Interfaz reactiva sin frameworks pesados
-- **CSS Avanzado**: Efectos glassmorphism y animaciones suaves
-- **Responsive Design**: Adaptable a cualquier dispositivo
 
 ## 📝 Ejemplo Completo de Uso
 
@@ -122,15 +118,10 @@ cd /mnt/c/Users/[TU_USUARIO]/Desktop/MPIyOpenMP/torneo
 make web
 
 # 4. Abrir navegador en: http://localhost:8000/templates/demo.html
-```
-## 💡 Ventajas de esta Solución
 
-- ✅ **Sin comandos complicados** - Todo se maneja desde la web
-- ✅ **Interfaz moderna** - Glassmorphism y animaciones CSS
-- ✅ **Educativo** - Visualiza conceptos de MPI/OpenMP
-- ✅ **Portable** - Solo necesitas un navegador
-- ✅ **Responsive** - Funciona en móviles
-- ✅ **Sin frameworks pesados** - JavaScript vanilla
+# o colocar en un solo comando:
+wsl -e bash -c "cd /mnt/c/Users/Usuario/Desktop/MPIyOpenMP/torneo && make web"
+```
 
 ## 🔧 Solución de Problemas
 
@@ -174,14 +165,6 @@ ls /mnt/c/Users/Usuario/Desktop/MPIyOpenMP/
 ls /mnt/c/Users/
 ```
 
-## 🎯 Para Educadores
-
-Esta aplicación es ideal para:
-- **Clases de Sistemas Paralelos**: Demuestra MPI y OpenMP visualmente
-- **Talleres de Programación**: Interfaz atractiva para estudiantes  
-- **Demostraciones**: Sin setup complicado, solo abrir navegador
-- **Evaluaciones**: Los estudiantes pueden experimentar directamente
-
 ## 🌟 Características Técnicas
 
 - **Frontend**: HTML5 + CSS3 + JavaScript ES6
@@ -190,49 +173,3 @@ Esta aplicación es ideal para:
 - **Diseño**: Mobile-first responsive
 - **Efectos**: CSS animations + glassmorphism
 - **Compatibilidad**: Todos los navegadores modernos
-
-## 📱 Uso en Móviles
-
-La aplicación está optimizada para móviles:
-- Tarjetas de tripulaciones adaptables
-- Botones táctiles grandes
-- Modal responsive para resultados
-- Texto legible en pantallas pequeñas
-
-## 🚀 Autor
-
-Proyecto educativo para demostración de conceptos de programación paralela.
-
-**¡Disfruta explorando MPI y OpenMP de manera visual e interactiva!** 🏴‍☠️⚔️
-
-## 🎯 Para Educadores
-
-Esta aplicación es ideal para:
-- **Clases de Sistemas Paralelos**: Demuestra MPI y OpenMP visualmente
-- **Talleres de Programación**: Interfaz atractiva para estudiantes  
-- **Demostraciones**: Sin setup complicado, solo abrir navegador
-- **Evaluaciones**: Los estudiantes pueden experimentar directamente
-
-## 🌟 Características Técnicas
-
-- **Frontend**: HTML5 + CSS3 + JavaScript ES6
-- **Backend**: Python HTTP Server (simple)
-- **Motor de Simulación**: C con MPI + OpenMP
-- **Diseño**: Mobile-first responsive
-- **Efectos**: CSS animations + glassmorphism
-- **Compatibilidad**: Todos los navegadores modernos
-
-## 📱 Uso en Móviles
-
-La aplicación está optimizada para móviles:
-- Tarjetas de tripulaciones adaptables
-- Botones táctiles grandes
-- Modal responsive para resultados
-- Texto legible en pantallas pequeñas
-
-## 🚀 Autor
-
-Proyecto educativo para demostración de conceptos de programación paralela.
-
-**¡Disfruta explorando MPI y OpenMP de manera visual e interactiva!** 🏴‍☠️⚔️
-

@@ -422,4 +422,5 @@ Este proyecto demuestra exitosamente:
 3. **Escalabilidad**: Desde laboratorio hasta clusters HPC
 4. **Portabilidad**: Funciona en Windows, Linux, macOS
 
+
 ---

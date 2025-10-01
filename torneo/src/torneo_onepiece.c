@@ -166,6 +166,7 @@ int main(int argc, char* argv[]) {
     return 0;
 }
 
+
 /*
  * ===============================================================================
  * RESUMEN DE LA ARQUITECTURA HÍBRIDA MPI/OpenMP:
